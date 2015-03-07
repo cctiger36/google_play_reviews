@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require "optparse"
+require "google_play_reviews"
+
+options = {}
+opts = OptionParser.new do |opts|
+  opts.banner = "Usage: google_play_reviews [options] APP_ID"
+
+  opts.on("-s [VALUE]", "--sort-order [VALUE]", "Sort order: 'newest'(default), 'rating' or 'helpfulness'") do |sort_order|
+    puts "Invalid sort-order." unless GooglePlayReviews.invalid_sort_order?(sort_order.to_sym)
+    options[:sort_order] = GooglePlayReviews::SortOrder[sort_order.to_sym]
+  end
+
+  opts.on("-p [VALUE]", "--page [VALUE]", "Page number (start from 0)") do |page|
+    options[:page] = page
+  end
+
+  opts.on("-v", "--version", "Display the current version") do
+    puts "command_timer " + GooglePlayReviews::VERSION
+    exit 0
+  end
+
+end
+opts.parse!
+
+(ARGV[0] = '-h'; opts.parse!) unless ARGV[0]
+
+entries = GooglePlayReviews.fetch(ARGV[0], options)
+if entries.any?
+  puts "------------------------------"
+  entries.each do |entry|
+    puts entry
+    puts "------------------------------"
+  end
+end
