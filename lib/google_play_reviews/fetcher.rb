@@ -45,9 +45,11 @@ module GooglePlayReviews
           review_id = node.css(".review-header").first["data-reviewid"]
           entry = Entry.new
           entry.review_id = review_id.strip
-          entry.author_name = node.css(".author-name a").first.content
-          entry.author_url = GOOGLE_PLAY_ROOT_URL + node.css(".author-name a").first["href"]
-          entry.author_image_url = node.css(".author-image").first["src"]
+          if node.css(".author-name a").first
+            entry.author_name = node.css(".author-name a").first.content
+            entry.author_url = GOOGLE_PLAY_ROOT_URL + node.css(".author-name a").first["href"]
+            entry.author_image_url = node.css(".author-image").first["src"]
+          end
           entry.review_body = node.css(".review-body").first.text.strip.sub(/  全文を表示$/, '')
           entry.rating = node.css(".current-rating").first["style"].gsub(/[^0-9]/, '').to_i / 20
           entry.review_date_string = node.css(".review-date").first.text
