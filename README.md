@@ -60,4 +60,4 @@ GooglePlayReviews.fetch(app_id, options)
 #   :page (start from 0)
 ```
 
-This will return the review entries. See [lib/google_play_reviews/entry.rb!](lib/google_play_reviews/entry.rb!)
+This will return the review entries. See [lib/google_play_reviews/entry.rb](lib/google_play_reviews/entry.rb)
