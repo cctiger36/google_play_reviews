@@ -9,6 +9,10 @@ options = {}
 opts = OptionParser.new do |opts|
   opts.banner = "Usage: google_play_reviews [options] APP_ID"
 
+  opts.on("-l [VALUE]", "--host-language [VALUE]", "Host language: use 'en' as default") do |host_language|
+    options[:host_language] = host_language
+  end
+
   opts.on("-s [VALUE]", "--sort-order [VALUE]", "Sort order: 'newest'(default), 'rating' or 'helpfulness'") do |sort_order|
     puts "Invalid sort-order." unless GooglePlayReviews.invalid_sort_order?(sort_order.to_sym)
     options[:sort_order] = GooglePlayReviews::SortOrder[sort_order.to_sym]
@@ -19,17 +23,16 @@ opts = OptionParser.new do |opts|
   end
 
   opts.on("-v", "--version", "Display the current version") do
-    puts "command_timer " + GooglePlayReviews::VERSION
+    puts "google_play_reviews " + GooglePlayReviews::VERSION
     exit 0
   end
-
 end
 opts.parse!
 
-(ARGV[0] = '-h'; opts.parse!) unless ARGV[0]
+(ARGV[0] = '--help'; opts.parse!) unless ARGV[0]
 
 entries = GooglePlayReviews.fetch(ARGV[0], options)
-if entries.any?
+if entries && entries.any?
   puts "------------------------------"
   entries.each do |entry|
     puts entry

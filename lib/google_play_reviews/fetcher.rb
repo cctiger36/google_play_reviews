@@ -32,7 +32,7 @@ module GooglePlayReviews
           reviewType: 1,
           pageNum: @options[:page],
           xhr: 1,
-          hl: "en",
+          hl: @options[:host_language],
         })
         response = http.start do |h|
           h.request(request)

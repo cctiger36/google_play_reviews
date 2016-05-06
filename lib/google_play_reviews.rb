@@ -12,6 +12,7 @@ module GooglePlayReviews
   class << self
     def fetch(app_id, options = {})
       return unless app_id
+      options[:host_language] ||= "en"
       options[:sort_order] ||= SortOrder[:newest]
       options[:page] ||= 0
       Fetcher.new.fetch_entries(app_id, options)
