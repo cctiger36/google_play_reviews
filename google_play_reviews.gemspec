@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["cctiger36@gmail.com"]
 
   spec.summary       = %q{Fetch App reviews from Google Play.}
-  spec.description   = %q{Fetch App reviews from Google Play.}
+  spec.description   = " "
   spec.homepage      = "https://github.com/cctiger36/google_play_reviews"
   spec.license       = "MIT"
 
