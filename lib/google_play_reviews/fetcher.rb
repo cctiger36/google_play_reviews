@@ -19,6 +19,7 @@ module GooglePlayReviews
     end
 
     private
+
       def fetch_html_from_google_play
         uri = URI.parse(GET_REVIEWS_URL)
         http = Net::HTTP.new(uri.host, uri.port)
@@ -29,7 +30,9 @@ module GooglePlayReviews
           id: app_id,
           reviewSortOrder: @options[:sort_order],
           reviewType: 1,
-          pageNum: @options[:page]
+          pageNum: @options[:page],
+          xhr: 1,
+          hl: "en",
         })
         response = http.start do |h|
           h.request(request)
@@ -50,7 +53,8 @@ module GooglePlayReviews
             entry.author_url = GOOGLE_PLAY_ROOT_URL + node.css(".author-name a").first["href"]
             entry.author_image_url = node.css(".author-image").first["src"]
           end
-          entry.review_body = node.css(".review-body").first.text.strip.sub(/  全文を表示$/, '')
+          node.css(".review-body").first.css("a").remove
+          entry.review_body = node.css(".review-body").first.text.strip
           entry.rating = node.css(".current-rating").first["style"].gsub(/[^0-9]/, '').to_i / 20
           entry.review_date_string = node.css(".review-date").first.text
           entry.review_url = GOOGLE_PLAY_ROOT_URL + node.css("a.reviews-permalink").first["href"]
