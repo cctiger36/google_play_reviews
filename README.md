@@ -2,6 +2,8 @@
 
 Fetch App reviews from Google Play.
 
+[![Gem Version](https://badge.fury.io/rb/google_play_reviews.svg)](https://badge.fury.io/rb/google_play_reviews)
+
 ## Installation
 
 Add this line to your application's Gemfile:
