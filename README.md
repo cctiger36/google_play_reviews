@@ -23,13 +23,14 @@ Or install it yourself as:
 Console command:
 
     google_play_reviews [options] APP_ID
+        -l, --host-language [VALUE]      Host language: use 'en' as default
         -s, --sort-order [VALUE]         Sort order: 'newest'(default), 'rating' or 'helpfulness'
         -p, --page [VALUE]               Page number (start from 0)
         -v, --version                    Display the current version
 
 For example:
 
-    $ google_play_reviews -s helpfulness -p 2 com.google.android.googlequicksearchbox
+    $ google_play_reviews -l ja -s helpfulness -p 2 com.google.android.googlequicksearchbox
     ------------------------------
     review_id: gp:AOqpTOH34XsWVlMNiEIo7jarmgFNXbcyMz46Q5zgPaPvhrynruzQ-l98_3lOp10xMSJdkQxgK59F427eGnjCNA
     author_name: ウルフハウンド
